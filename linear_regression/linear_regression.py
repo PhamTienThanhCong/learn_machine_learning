@@ -1,5 +1,6 @@
 from operator import le
 import re
+import csv
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy.core.shape_base import hstack
@@ -71,6 +72,12 @@ plt.plot(x,y,'go')
 y_show = a2*x + b2
 plt.plot (x,y_show)
 
-plt.show()
-
-np.save('linear_regression/new_data.txt',y_show)
+# plt.show()
+# writing to csv file  
+with open('linear_regression/new_data.csv', 'w',encoding='UTF8', newline='') as csvfile:  
+    # creating a csv writer object  
+    csvwriter = csv.writer(csvfile)  
+    # writing the fields   
+    # writing the data rows  
+    csvwriter.writerows(y_show)
+# np.save('linear_regression/new_data.txt',y_show)
