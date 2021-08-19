@@ -1,5 +1,7 @@
-import numpy as np
+class Student:
+    schoolName = 'XYZ School' 
+    address = "haDong"
 
-data = np.load('y_test.sav')
 
-print(data.shape)
+std = Student()
+print(std.address)

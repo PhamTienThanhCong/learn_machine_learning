@@ -10,6 +10,7 @@ data = np.loadtxt('linear_regression/data.txt', delimiter = ',')
 X = data[:,0].reshape(-1, 1)
 y = data[:,1].reshape(-1, 1)
 
+print(y)
 # đặt linerRegersion
 lrg = LinearRegression()
 
