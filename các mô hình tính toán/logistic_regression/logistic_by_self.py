@@ -4,7 +4,7 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression
 
 # nhập dữ liệu data vào từ file csv 
-data = pd.read_csv('logistic_regression\data.csv').values
+data = pd.read_csv('D:\machine leaning\các mô hình tính toán\logistic_regression\data.csv').values
 # tách dữ liệu
 x = data[:,:2]
 y = data[:,2]
