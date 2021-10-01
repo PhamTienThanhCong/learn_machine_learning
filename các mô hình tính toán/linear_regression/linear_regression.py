@@ -4,6 +4,7 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy.core.shape_base import hstack
+import math 
 
 # Dộc dữ liệu từ tệp về ngắn cách nhau bới ","
 data = np.loadtxt('linear_regression/data.txt', delimiter = ',')
@@ -22,11 +23,11 @@ def linear_regression_1(a,b,x,y,learning_rate,number_learn):
     x_train = np.hstack((np.ones((len(x),1)),x))
     #xây dựng vector w với w[1]=a và w[0]=b
     w = np.array([[b],[a]])
-    # cost_his = [] # tạo mảng lưu trữ hàm mất mát 
+    cost_his = [] # tạo mảng lưu trữ hàm mất mát 
     for i in range(0,number_learn):
         # Sử dụng hàm nhân ma trận dot (w[0]*X[:,0] và w[1]*X[:,1])
         cost = np.dot(x_train,w) - y #phép tính tương đương ax + b -y
-        # cost_his.append(0.5*np.sum(cost)/len(x)) # lưu giá trị vào mảng loss function
+        cost_his.append(0.5*np.sum(cost)/len(x)) # lưu giá trị vào mảng loss function
         #tính toán w[0] và w[1] sao cho chuẩn nhất
         #sử dụng gradient với công thức x=x-learning_rate*f'(x)
         # ta có f(w0,w1)=0.5*sum(w0+w1*xi-yi)^2 với i= 1--> n
@@ -34,7 +35,7 @@ def linear_regression_1(a,b,x,y,learning_rate,number_learn):
         #f'(x)=xi(w0+w1*xi-yi)
         #dùng nultiply để nhân x[:,1] với từng giá trị của mảng cost
         w[1] -= learning_rate*np.sum(np.multiply(cost, x_train[:,1].reshape(-1,1))) 
-    return w[1],w[0]
+    return w[1],w[0],cost_his
 
 # cách 2 code trâu
 def linear_regression_2(a,b,x,y,learning_rate,number_learn):
@@ -54,10 +55,11 @@ def linear_regression_2(a,b,x,y,learning_rate,number_learn):
         # cost_his.append((b_train)*0.5/len(x)) # lưu giá trị vào mảng loss function
     return a,b
 
-a1,b1 = linear_regression_1(0.0,0.0,x,y,learning_rate,number_learn)
-a2,b2 = linear_regression_2(1.1,1.1,x,y,learning_rate,number_learn)
+a1,b1,loss = linear_regression_1(0.0,0.0,x,y,learning_rate,number_learn)
+# a2,b2 = linear_regression_2(1.1,1.1,x,y,learning_rate,number_learn)
 print(a1,b1)
-print(a2,b2)
+print(loss)
+# print(a2,b2)
 
 # Tính toán y = ax+b với 2 trương hợp a,b khác nhau
 plt.subplot(2,1,1)
@@ -66,18 +68,18 @@ plt.plot(x,y,'go')
 y_show = a1*x + b1
 plt.plot (x,y_show)
 
-plt.subplot(2,1,2)
-plt.title('trường hợp 2')
-plt.plot(x,y,'go')
-y_show = a2*x + b2
-plt.plot (x,y_show)
+# plt.subplot(2,1,2)
+# plt.title('trường hợp 2')
+# plt.plot(x,y,'go')
+# y_show = a2*x + b2
+# plt.plot (x,y_show)
 
-# plt.show()
+plt.show()
 # writing to csv file  
-with open('linear_regression/new_data.csv', 'w',encoding='UTF8', newline='') as csvfile:  
-    # creating a csv writer object  
-    csvwriter = csv.writer(csvfile)  
-    # writing the fields   
-    # writing the data rows  
-    csvwriter.writerows(y_show)
-# np.save('linear_regression/new_data.txt',y_show)
+# with open('linear_regression/new_data.csv', 'w',encoding='UTF8', newline='') as csvfile:  
+#     # creating a csv writer object  
+#     csvwriter = csv.writer(csvfile)  
+#     # writing the fields   
+#     # writing the data rows  
+#     csvwriter.writerows(y_show)
+# # np.save('linear_regression/new_data.txt',y_show)
